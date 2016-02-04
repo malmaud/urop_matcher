@@ -68,3 +68,10 @@ var UserProfileLoader = React.createClass({
     });
   }
 });
+
+var UserProfileList = React.createClass({
+  render: function() {
+  }
+});
+
+module.exports = {UserProfileList, UserProfileLoader, UserProfile}

@@ -11,7 +11,11 @@ class User(ndb.Model):
     year = ndb.StringProperty()
     approved = ndb.BooleanProperty()
     research = ndb.TextProperty()
+    host = ndb.KeyProperty(kind='User')
 
     @classmethod
     def for_user_id(kls, user_id):
         return kls.query(kls.user_id == user_id).get()
+
+    def get_urops(self):
+        return User.query(User.host == self.key())

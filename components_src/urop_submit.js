@@ -1,8 +1,12 @@
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
+
 function get_first_name(name) {
   return name.split(' ')[0];
 }
 
 var UROPForm = React.createClass({
+  mixins: [LinkedStateMixin],
+
   getDefaultProps: function() {
     return {initialEmail: ''};
   },
@@ -48,22 +52,6 @@ var UROPForm = React.createClass({
     }
   },
 
-  updateName: function(event) {
-    this.setState({name: event.target.value});
-  },
-
-  updateEmail: function(event) {
-    this.setState({email: event.target.value});
-  },
-
-  updateEmailConfirm: function(event) {
-    this.setState({emailConfirm: event.target.value});
-  },
-
-  updateStatement: function(event) {
-    this.setState({statement: event.target.value});
-  },
-
   get_form: function() {
     let error_msg = <div/>
     if (this.state.errorMsg.length > 0) {
@@ -79,12 +67,12 @@ var UROPForm = React.createClass({
           <h1>Apply for a UROP</h1>
         </div>
 
-        <p>Please fill out this form:</p>
+        <p>Please fill out:</p>
         <form className='form-horizontal' id='urop-form' onSubmit={this.onSubmit}>
           <div className='form-group'>
             <label className='col-sm-2'>Name</label>
             <div className='col-sm-9'>
-              <input type='text' className='form-control' name='name' placeholder="Preferred name" value={this.state.name} onChange={this.updateName}/>
+              <input type='text' className='form-control' name='name' placeholder="Preferred name" valueLink={this.linkState('name')} />
 
             </div>
           </div>
@@ -92,21 +80,21 @@ var UROPForm = React.createClass({
           <div className='form-group'>
             <label className='col-sm-2'>Email</label>
             <div className='col-sm-9'>
-              <input type='email' className='form-control' placeholder="Preferred email"  name="email" value={this.state.email} onChange={this.updateEmail}/>
+              <input type='email' className='form-control' placeholder="Preferred email"  name="email" valueLink={this.linkState('email')} />
             </div>
           </div>
 
           <div className='form-group'>
             <label className='col-sm-2'>Confirm email</label>
             <div className='col-sm-9'>
-              <input type='email' className='form-control'  name="email_confirm" value={this.state.emailConfirm} onChange={this.updateEmailConfirm}/>
+              <input type='email' className='form-control'  name="email_confirm" valueLink={this.linkState('emailConfirm')} />
             </div>
           </div>
 
           <div className='form-group'>
             <label className='col-sm-2'>Statement of interest</label>
             <div className='col-sm-9'>
-              <textarea className='form-control' rows="10" name="statement" value={this.state.statement} onChange={this.updateStatement}/>
+              <textarea className='form-control' rows="10" name="statement" valueLink={this.linkState('statement')}/>
             </div>
           </div>
 
@@ -123,3 +111,5 @@ var UROPForm = React.createClass({
     );
   }
 });
+
+module.exports = {UROPForm}

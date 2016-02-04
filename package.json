@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "devDependencies": {
     "babel-cli": "^6.4.5",
-    "babel-preset-react": "^6.3.13"
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babelify": "^7.2.0",
+    "watchify": "^3.7.0"
   },
-  "scripts": {
-    "babel": "babel components_src --watch -d site/static/components --source-maps",
-    "browserify": "browserify site/static/components/urop_submit.js -o site/static/components/bundle.js"
+  "scripts": {    
+    "watch": "watchify components_src/main.js -o site/static/main.js --debug -t [babelify --presets [es2015 react] ] --standalone main"
   }
 }

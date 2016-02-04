@@ -7,11 +7,12 @@ User profile
 {% block content %}
 <div id="mount"></div>
 
-<script src="/static/components/user_profile.js"></script>
+<script src="/static/main.js"></script>
 
 <script>
 $(document).ready(function() {
-  ReactDOM.render(React.createElement(UserProfileLoader, {user_id: "{{user_id}}"}), $("#mount")[0]);
+  ReactDOM.render(React.createElement(main.user_profile.UserProfileLoader, {user_id: "{{user_id}}"}), $("#mount")[0]);
 });
 </script>
+
 {% endblock %}

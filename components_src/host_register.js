@@ -106,3 +106,5 @@ var HostForm = React.createClass({
   }
 
 });
+
+module.exports = {HostForm}

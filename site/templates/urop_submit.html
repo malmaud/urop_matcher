@@ -10,13 +10,11 @@ UROP submission
 </div>
 
 
-<script src="/static/components/urop_submit.js"></script>
 <script>
 
 $(document).ready(function() {
-  ReactDOM.render(React.createElement(UROPForm, {initialEmail: "{{email}}"}), $("#mount")[0]);
+  ReactDOM.render(React.createElement(main.urop_submit.UROPForm, {initialEmail: "{{email}}"}), $("#mount")[0]);
 });
-
 
 </script>
 

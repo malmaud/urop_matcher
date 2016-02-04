@@ -8,11 +8,11 @@ Host registration
 
 <div id='mount'></div>
 
-<script src="/static/components/host_register.js"></script>
+<script src="/static/main.js"></script>
 
 <script>
 $(document).ready(function() {
-  ReactDOM.render(React.createElement(HostForm, {initialEmail: "{{email}}"}), $("#mount")[0]);
+  ReactDOM.render(React.createElement(main.host_register.HostForm, {initialEmail: "{{email}}"}), $("#mount")[0]);
 });
 </script>
 
