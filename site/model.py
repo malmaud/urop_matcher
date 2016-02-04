@@ -6,10 +6,12 @@ class User(ndb.Model):
     date_uploaded = ndb.DateTimeProperty(auto_now_add=True)
     date_modified = ndb.DateTimeProperty(auto_now=True)
     user_id = ndb.StringProperty()
-
-class UROP(User):
+    kind = ndb.StringProperty()
     statement = ndb.TextProperty()
     year = ndb.StringProperty()
+    approved = ndb.BooleanProperty()
+    research = ndb.TextProperty()
 
-class Host(User):
-    pass
+    @classmethod
+    def for_user_id(kls, user_id):
+        return kls.query(kls.user_id == user_id).get()

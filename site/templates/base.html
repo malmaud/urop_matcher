@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>
+    {% block title %}
+    UROP submission
+    {% endblock %}
+  </title>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" crossorigin="anonymous"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script src="https://fb.me/react-0.14.7.js"></script>
+<script src="https://fb.me/react-dom-0.14.7.js"></script>
+
+</head>
+<body>
+  <nav class='navbar navbar-default'>
+    <div class='container'>
+      <div class='navbar-header'>
+        <a class='navbar-brand' href='/'>
+          <img src="/static/bayes_in_the_brain.jpg" width="30"/>
+        </a>
+        <ul class='nav navbar-nav'>
+          <li><a href='/urop_submit'>For UROPS</a></li>
+          <li><a href='/host_submit'>For hosts</a></li>
+
+          {% if login_url is defined %}
+            <li><a href='{{login_url}}'>Login</a></li>
+          {% endif %}
+
+          {% if logout_url is defined %}
+            <li><a href='{{logout_url}}'>Logout</a></li>
+          {% endif %}
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="col-xs-12">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+</div>
+</body>
+</html>

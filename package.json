@@ -6,6 +6,7 @@
     "babel-preset-react": "^6.3.13"
   },
   "scripts": {
-    "babel": "babel template_src --watch -d site/templates --source-maps"
+    "babel": "babel components_src --watch -d site/static/components --source-maps",
+    "browserify": "browserify site/static/components/urop_submit.js -o site/static/components/bundle.js"
   }
 }

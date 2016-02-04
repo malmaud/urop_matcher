@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+UROP submission
+{% endblock %}
+
+{% block content %}
+
+<div id="mount">
+</div>
+
+
+<script src="/static/components/urop_submit.js"></script>
+<script>
+
+$(document).ready(function() {
+  ReactDOM.render(React.createElement(UROPForm, {initialEmail: "{{email}}"}), $("#mount")[0]);
+});
+
+
+</script>
+
+{% endblock %}
