@@ -1,0 +1,11 @@
+{
+  "name": "urop",
+  "version": "1.0.0",
+  "devDependencies": {
+    "babel-cli": "^6.4.5",
+    "babel-preset-react": "^6.3.13"
+  },
+  "scripts": {
+    "babel": "babel template_src --watch -d site/templates --source-maps"
+  }
+}
