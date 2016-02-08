@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Submit feedback
+{% endblock %}
+
+{% block content %}
+<div id='mount'></div>
+
+<script>
+$(document).ready(function() {
+  var current_user = {{ json_user | safe }};
+  main.ReactDOM.render(main.React.createElement(main.feedback.FeedbackForm, {user: current_user}), $("#mount")[0]);
+});
+</script>
+{% endblock %}

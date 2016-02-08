@@ -23,7 +23,7 @@ var Filters = React.createClass({
     if(this.props.mode=='UROP') {
       urop_only = (
         <div className='checkbox' style={{marginLeft: '10px'}}>
-          <label><input type='checkbox'  onChange={this.onChangeUnclaimed} checked={this.props.show_unclaimed}/>Show unclaimed UROPS only</label>
+          <label><input type='checkbox'  onChange={this.onChangeUnclaimed} checked={this.props.show_unclaimed}/>Show unmatched UROPS only</label>
         </div>
       );
     }

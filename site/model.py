@@ -23,3 +23,8 @@ class User(ndb.Model):
 
 class LogEntry(ndb.Expando):
     date_created = ndb.DateTimeProperty(auto_now_add=True)
+
+class Feedback(ndb.Model):
+    feedback = ndb.TextProperty()
+    user = ndb.KeyProperty(User)
+    date_created = ndb.DateTimeProperty(auto_now_add=True)

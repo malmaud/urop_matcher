@@ -26,7 +26,7 @@ var HostHome = React.createClass({
     } else {
       inner = (
         <div>
-          <p>No UROPs yet. <a href="/browse">Browse for some</a>.</p>
+          <p>You don't have any UROPs yet. <a href="/browse">Browse for some</a>.</p>
         </div>
       );
     }
@@ -42,7 +42,7 @@ var HostHome = React.createClass({
     return (
       <div>
         {alert}
-        <h3>UROP information</h3>
+        <h3>Your UROP information</h3>
         {inner}
       </div>
     );
@@ -134,7 +134,7 @@ var PersonalProfile = React.createClass({
           <div className='form-group'>
             <label className='col-sm-2'>Research interests</label>
             <div className='col-sm-10'>
-              <textarea valueLink={this.linkState('research')}/>
+              <textarea className='form-control' rows="10" valueLink={this.linkState('research')}/>
             </div>
           </div>
         );
@@ -160,7 +160,7 @@ var PersonalProfile = React.createClass({
             <div className='form-group'>
               <label className='col-sm-2'>Statement of interest</label>
               <div className='col-sm-10'>
-                <textarea valueLink={this.linkState('statement')}/>
+                <textarea className='form-control' rows="10" valueLink={this.linkState('statement')}/>
               </div>
             </div>
             <div className='form-group'>

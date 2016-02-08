@@ -297,6 +297,32 @@ class UserHandler(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'application/json'
         self.response.write(to_json(d))
 
+class FeedbackUI(webapp2.RequestHandler):
+    def get(self):
+        t = JINJA.get_template('feedback.html')
+        self.response.write(t.render(**get_state()))
+
+class Feedback(webapp2.RequestHandler):
+    def post(self):
+        feedback = model.Feedback()
+        payload = json.loads(self.request.body)
+        user = get_state()['user']
+        json_reply(self)
+        d = dict()
+        d['status'] = 'ok'
+        if 'feedback' in payload:
+            feedback.feedback = payload['feedback']
+        if 'user_id' in payload:
+            if payload['user_id'] != user.user_id:
+                d['status'] = 'insufficient permission'
+                self.response.write(to_json(d))
+                return
+            else:
+                feedback.user = user.key
+        feedback.put()
+        d['feedback'] = feedback.to_dict()
+        self.response.write(to_json(d))
+
 
 app = webapp2.WSGIApplication([
     webapp2.Route('/', handler=Hello),
@@ -311,5 +337,7 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/dashboard', handler=Dashboard),
     webapp2.Route('/host/<host_id>', handler=Hosts),
     webapp2.Route('/cv/<user_id>', handler=CV),
+    webapp2.Route('/feedback', handler=FeedbackUI),
+    webapp2.Route('/api/feedback', handler=Feedback),
 ],
     debug=True)

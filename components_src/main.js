@@ -5,6 +5,7 @@ var browse = require('./browse.js');
 var home_page = require('./home_page.js');
 var React = require('React');
 var ReactDOM = require('react-dom');
+var feedback = require('./feedback.js');
 
 module.exports = {host_register, urop_submit, user_profile,
-  browse, home_page, React, ReactDOM};
+  browse, home_page, React, ReactDOM, feedback};
