@@ -1,3 +1,4 @@
+var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 function get_first_name(name) {
@@ -25,7 +26,7 @@ var UROPForm = React.createClass({
       )
     } else if (status=="submitted") {
       return (
-        <div className='alert alert-success'>Thanks {get_first_name(this.state.name)}, your form has been received.</div>
+        <div className='alert alert-success'>Thanks {get_first_name(this.state.name)}, your form has been received. You'll be redirected in 5 seconds.</div>
       );
     }
   },
@@ -40,13 +41,24 @@ var UROPForm = React.createClass({
       this.setState({errorMsg: 'Must input an email'});
     } else {
       this.setState({errorMsg: '', status: 'submitting'});
-      let data = {name: this.state.name, email: this.state.email, statement: this.state.statement};
-      $.post({
-        url: '/do_urop_submit',
-        data: JSON.stringify(data),
+      let fd = new FormData();
+      fd.append('name', this.state.name);
+      fd.append('email', this.state.email);
+      fd.append('statement', this.state.statement);
+      fd.append('cv', this.refs.file.files[0]);
+
+      $.ajax({
+        url: '/urop',
+        method: 'post',
+        data: fd,
+        processData: false,
+        contentType: false,
         dataType: 'json',
         success: result => {
           this.setState({status: 'submitted'});
+          if(result.status == 'ok') {
+            window.setTimeout(()=>location.assign('/dashboard'), 5000);
+          }
         }
       });
     }
@@ -98,7 +110,12 @@ var UROPForm = React.createClass({
             </div>
           </div>
 
-
+          <div className='form-group'>
+            <label className='col-sm-2'>CV</label>
+            <div className='col-sm-10'>
+              <input ref='file' type='file'/>
+            </div>
+          </div>
 
           <div className='form-group'>
             <div className='col-sm-offset-2 col-sm-3'>

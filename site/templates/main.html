@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <div class='page-header'>
-  <h1>Welcome</h1>
+  <h1>Cocosci UROP matching</h1>
 </div>
-Hi {{name}}!
+
+{% if google_user is none %}
+Please <a href="{{login_url}}">login</a> to get started.
+{% else %}
+{% if user is none %}
+Please register as a <a href='/urop_submit'>UROP</a> or a <a href='/host_submit'>host</a>.
+{% endif %}
+{% endif %}
+
 {% endblock %}

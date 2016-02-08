@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<div id="mount"></div>
+
+
+<script>
+$(document).ready(function() {
+  var urops = [];
+  var host = [];
+  {% if urops is none %}
+  {% else %}
+    urops = {{urops | safe}};
+  {% endif %}
+  {% if host is none %}
+  {% else %}
+    host = {{host | safe}};
+  {% endif %}
+  // var user = JSON.parse('{{json_user | safe}}');
+  var user = {{json_user | safe}};
+  console.log(user);
+  console.log(urops);
+  main.ReactDOM.render(main.React.createElement(main.home_page.Home,
+    {urops: urops, user: user, host: host}), $("#mount")[0]);
+});
+</script>
+
+{% endblock %}

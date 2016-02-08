@@ -1,3 +1,5 @@
+var React = require('react');
+
 var HostForm = React.createClass({
   getInitialState: function() {
     return {'name': '', 'research': '', 'email': this.props.initialEmail, 'status': 'filling_out', errorMsg: ''};
@@ -13,15 +15,16 @@ var HostForm = React.createClass({
         return this.get_form();
         break;
       case 'submitting':
-        return
-          <p>Submitting...</p>;
+        return (
+          <p>Submitting...</p>
+        );
         break;
-      case 'filled_out':
+      case 'submitted':
         return (
           <div className='alert alert-success'>
-          Thanks, someone will approve your registration soon.
+          Thanks for registering. Someone will need to approve your application before you can match with UROPs. You'll be redirected in 5 seconds.
           </div>
-        )
+        );
         break;
     }
   },
@@ -45,11 +48,15 @@ var HostForm = React.createClass({
     } else {
       this.setState({errorMsg: '', status: 'submitting'});
       let data = {name: this.state.name, email: this.state.email, research: this.state.research};
-      $.post({
-        url: '/do_host_submit',
+      $.ajax({
+        url: '/host',
+        method: 'post',
         data: JSON.stringify(data),
         success: result => {
           this.setState({status: 'submitted'});
+          if(result.status == 'ok') {
+            window.setTimeout(()=>location.assign('/dashboard'), 5000);
+          }
         }
       });
     }
