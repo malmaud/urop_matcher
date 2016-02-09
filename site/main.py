@@ -15,9 +15,11 @@ import model
 mimetypes.init()
 
 JINJA = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')),
+    loader=jinja2.FileSystemLoader(os.path.join(
+        os.path.dirname(__file__), 'templates')),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
+
 
 def to_json(obj):
     def json_serial(obj):
@@ -28,10 +30,13 @@ def to_json(obj):
         raise TypeError("")
     return json.dumps(obj, default=json_serial, encoding='utf8')
 
+
 def user_to_dict(user):
     return user.to_dict()
 
+
 class Hello(webapp2.RequestHandler):
+
     def get(self):
         t = JINJA.get_template('main.html')
         state = get_state()
@@ -40,10 +45,13 @@ class Hello(webapp2.RequestHandler):
         else:
             self.response.write(t.render(**state))
 
+
 class UropSubmit(webapp2.RequestHandler):
+
     def get(self):
         t = JINJA.get_template('urop_submit.html')
         self.response.write(t.render(**get_state()))
+
 
 def save_cv(user, cv):
     filename = '/urop_uploads/%s/%s' % (user.user_id, cv.filename)
@@ -53,7 +61,9 @@ def save_cv(user, cv):
     gcs_file.close()
     return filename
 
+
 class UROPCollection(webapp2.RequestHandler):
+
     def post(self):
         state = get_state()
         if state['user'] is not None:
@@ -80,12 +90,16 @@ class UROPCollection(webapp2.RequestHandler):
         entry.action = 'UROP created'
         entry.put()
 
+
 class HostSubmit(webapp2.RequestHandler):
+
     def get(self):
         t = JINJA.get_template('host_register.html')
         self.response.write(t.render(**get_state()))
 
+
 class HostCollection(webapp2.RequestHandler):
+
     def post(self):
         state = get_state()
         if state['user'] is not None:
@@ -108,6 +122,7 @@ class HostCollection(webapp2.RequestHandler):
         entry.action = 'Host created'
         entry.put()
 
+
 def get_state():
     google_user = users.get_current_user()
     json_user = None
@@ -122,26 +137,33 @@ def get_state():
         json_user = ""
     return dict(google_user=google_user, user=user, login_url=users.create_login_url('/'), logout_url=users.create_logout_url('/'), json_user=json_user)
 
+
 def has_permissions(profile):
     user = get_user()
     return True  # todo: fill in
 
 
-
 class UserProfile(webapp2.RequestHandler):
+
     def get(self, user_id):
         t = JINJA.get_template('user_profile.html')
         self.response.write(t.render(user_id=user_id, **get_state()))
 
+
 class Browse(webapp2.RequestHandler):
+
     def get(self):
         t = JINJA.get_template('browse.html')
-        users = model.User.query().fetch(10000)
+        state = get_state()
+        user = state['user']
+        users = model.User.for_lab(user.lab).fetch(10000)
         json_users = to_json([user_to_dict(user) for user in users])
         logging.info(json_users)
-        self.response.write(t.render(users=json_users, **get_state()))
+        self.response.write(t.render(users=json_users, **state))
+
 
 class HostUrops(webapp2.RequestHandler):
+
     def post(self, host_id, urop_id):
         json_reply(self)
         if host_id != "current":
@@ -175,7 +197,9 @@ class HostUrops(webapp2.RequestHandler):
         entry.action = 'UROP disclaimed'
         entry.put()
 
+
 class Dashboard(webapp2.RequestHandler):
+
     def get(self):
         t = JINJA.get_template('home.html')
         state = get_state()
@@ -193,11 +217,14 @@ class Dashboard(webapp2.RequestHandler):
         logging.info(urops)
         self.response.write(t.render(host=host, urops=urops, **get_state()))
 
+
 def json_reply(msg):
     msg.response.headers['Content-Type'] = 'application/json'
     return msg
 
+
 class Hosts(webapp2.RequestHandler):
+
     def put(self, host_id):
         payload = json.loads(self.request.body)
         logging.info(payload)
@@ -221,7 +248,9 @@ class Hosts(webapp2.RequestHandler):
         json_reply(self)
         self.response.write(to_json(d))
 
+
 class CV(webapp2.RequestHandler):
+
     def get(self, user_id):
         urop = model.User.for_user_id(user_id)
         # todo: check permissions
@@ -256,6 +285,7 @@ class CV(webapp2.RequestHandler):
 
 
 class UserHandler(webapp2.RequestHandler):
+
     def put(self, user_id):
         user = get_state()['user']
         d = {}
@@ -297,12 +327,16 @@ class UserHandler(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'application/json'
         self.response.write(to_json(d))
 
+
 class FeedbackUI(webapp2.RequestHandler):
+
     def get(self):
         t = JINJA.get_template('feedback.html')
         self.response.write(t.render(**get_state()))
 
+
 class Feedback(webapp2.RequestHandler):
+
     def post(self):
         feedback = model.Feedback()
         payload = json.loads(self.request.body)
