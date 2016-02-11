@@ -9,12 +9,29 @@
     "watchify": "^3.7.0"
   },
   "scripts": {
-    "watch": "watchify components_src/main.js -o site/static/main.js --debug -t [babelify --presets [es2015 react] ] --standalone main"
+    "browserify": "watchify lib/views/main.js -o static/main.js --debug -t [babelify --presets [es2015 react] ] --standalone main"
   },
   "dependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.5.0",
+    "babel-polyfill": "^6.5.0",
+    "babel-register": "^6.5.1",
+    "bluebird": "^3.2.2",
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
     "fuse.js": "git+https://github.com/krisk/Fuse.git",
+    "gcloud": "^0.27.0",
+    "jade": "^1.11.0",
+    "jquery": "^2.2.0",
+    "jsdom": "^8.0.2",
+    "jsonwebtoken": "^5.5.4",
     "marked": "^0.3.5",
+    "multer": "^1.1.0",
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "request": "^2.69.0"
+  },
+  "engines": {
+    "node": ">=0.12.7"
   }
 }

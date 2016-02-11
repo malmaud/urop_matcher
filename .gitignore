@@ -2,3 +2,5 @@
 node_modules
 site/static/main.js
 site/lib
+keyfile.json
+secret.json
