@@ -1,0 +1,18 @@
+version: '2'
+services:
+  db:
+    image: rethinkdb
+    ports:
+      - "10000:8080"
+      - "28015:28015"
+    volumes:
+      - /Users/malmaud/tmp/db:/data
+  web:
+    image: malmaud/urop
+    build: "."
+    links:
+      - db
+    ports:
+      - "9000:8080"
+    volumes:
+      - ./lib:/code/lib

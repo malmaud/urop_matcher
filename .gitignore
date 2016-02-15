@@ -4,3 +4,4 @@ site/static/main.js
 site/lib
 keyfile.json
 secret.json
+npm-debug.log
