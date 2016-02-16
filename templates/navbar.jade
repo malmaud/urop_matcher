@@ -6,9 +6,9 @@ nav(class='navbar navbar-default')
       ul(class='nav navbar-nav')
         li
           if pageData.logged_in
-            a(href='/logout') Logout
+            a(href='/_util/mock_logout') Logout
           else
-            a(href='/login') Login
+            a(href='/_util/mock_login') Login
         if pageData.is_user
           li
             a(href='/') Your profile
