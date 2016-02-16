@@ -4,18 +4,19 @@ nav(class='navbar navbar-default')
       a(class='navbar-brand' href='/')
         img(src='/static/bayes_in_the_brain.jpg' width='30')
       ul(class='nav navbar-nav')
-        li
-          if pageData.logged_in
-            a(href='/_util/mock_logout') Logout
-          else
-            a(href='/_util/mock_login') Login
         if pageData.is_user
           li
             a(href='/') Your profile
           li
             a(href='/browse') Browse UROPs/hosts
         else
-          li
-            a(href='/urop_register') Register as a UROP
-          li
-            a(href='/host_register') Register as a host
+          if pageData.logged_in
+            li
+              a(href='/urop_register') Register as a UROP
+            li
+              a(href='/host_register') Register as a host
+        li
+          if pageData.logged_in
+            a(href='/logout') Logout
+          else
+            a(href='/login') Login

@@ -6,15 +6,22 @@ services:
       - "10000:8080"
       - "28015:28015"
     volumes:
-      - /Users/malmaud/tmp/db:/data
+      # - /Users/malmaud/tmp/db:/data
+      - /home/docker-user:/data
   web:
     image: malmaud/urop
     build: "."
     links:
       - db
+      - redis
     ports:
       - "9000:8080"
     volumes:
-      - ./lib:/code/lib
-      - .:/secrets
+      # - ./lib:/code/lib
+      # - ./templates:/code/templates
+      - /home/docker-user:/secrets
     command: [/bin/bash, /code/setup_dev.sh]
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
